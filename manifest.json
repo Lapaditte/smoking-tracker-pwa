@@ -1,21 +1,33 @@
 {
     "name": "Smoking Tracker",
-    "short_name": "SmokTrack",
-    "description": "Track your smoking habits and health improvements",
+    "short_name": "Smoke Track",
+    "description": "Track your smoking habits and journey to quit",
     "start_url": "/",
     "display": "standalone",
-    "background_color": "#f0f4f8",
-    "theme_color": "#4a90e2",
+    "background_color": "#ffffff",
+    "theme_color": "#4CAF50",
+    "orientation": "portrait",
     "icons": [
         {
-            "src": "icon-192x192.png",
+            "src": "/icon-192x192.png",
             "sizes": "192x192",
-            "type": "image/png"
+            "type": "image/png",
+            "purpose": "any maskable"
         },
         {
-            "src": "icon-512x512.png",
+            "src": "/icon-512x512.png",
             "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ],
+    "screenshots": [
+        {
+            "src": "/screenshot1.png",
+            "sizes": "1280x720",
             "type": "image/png"
         }
-    ]
+    ],
+    "categories": ["health", "lifestyle"],
+    "prefer_related_applications": false
 }
