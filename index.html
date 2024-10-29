@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" 
+        content="default-src 'self'; 
+                 style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; 
+                 script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net;
+                 font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com;
+                 img-src 'self' data: https:;
+                 connect-src 'self';
+                 worker-src 'self';">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <title>Smoking Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="theme-switch-wrapper">
+        <div class="theme-switch" data-active="light">
+            <div class="switch-handle">
+                <i class="fas fa-sun"></i>
+            </div>
+        </div>
+    </div>
+    <div class="app-container">
+        <h1>Smoking Tracker</h1>
+        
+        <nav class="centered-nav">
+            <button id="main-tab" class="tab-button active">Main</button>
+            <button id="history-tab" class="tab-button">History & Trends</button>
+        </nav>
+
+        <div id="main-content">
+            <section id="cigarette-counter" class="centered-section">
+                <h2>Cigarette Counter</h2>
+                <button id="log-cigarette" class="primary-button">Log Cigarette</button>
+                
+                <div class="price-selector">
+                    <button class="price-option" data-price="10">₹10</button>
+                    <button class="price-option" data-price="20">₹20</button>
+                    <input type="number" id="custom-price" placeholder="₹30" min="1" step="0.5">
+                </div>
+
+                <div id="trigger-options">
+                    <button class="trigger-option" data-trigger="Stress">Stress</button>
+                    <button class="trigger-option" data-trigger="Social">Social</button>
+                    <button class="trigger-option" data-trigger="Boredom">Boredom</button>
+                    <button class="trigger-option" data-trigger="Habit">Habit</button>
+                    <button class="trigger-option" data-trigger="After food">After food</button>
+                    <button class="trigger-option" data-trigger="With Coffee">With Coffee</button>
+                    <button class="trigger-option" data-trigger="During work breaks">During work breaks</button>
+                    <button class="trigger-option" data-trigger="Anxiety">Anxiety</button>
+                    <button class="trigger-option" data-trigger="After exercise">After exercise</button>
+                    <button class="trigger-option" data-trigger="Other">Other</button>
+                </div>
+
+                <div class="cigarette-stats">
+                    <div class="stat-card">
+                        <h3>Today</h3>
+                        <p id="cigarette-count-daily">0 cigarettes</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>This Week</h3>
+                        <p id="cigarette-count-weekly">0 cigarettes</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>This Month</h3>
+                        <p id="cigarette-count-monthly">0 cigarettes</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="cost-calculator" class="centered-section">
+                <h2>Cost Calculator</h2>
+                <div id="cost-display">
+                    <p>Daily: ₹<span id="daily-cost">0</span></p>
+                    <p>Weekly: ₹<span id="weekly-cost">0</span></p>
+                    <p>Monthly: ₹<span id="monthly-cost">0</span></p>
+                    <p>Yearly: ₹<span id="yearly-cost">0</span></p>
+                </div>
+            </section>
+
+            <section id="health-impact" class="centered-section">
+                <h2>Smoke-Free Progress</h2>
+                <p>Smoke-Free Streak: <span id="smoke-free-time">0 Days 0 Months 0 Years</span></p>
+                <div id="health-improvements"></div>
+            </section>
+        </div>
+
+        <div id="history-content" class="hidden centered-content">
+            <nav class="centered-nav">
+                <button id="historical-data-tab" class="tab-button active">Historical Data</button>
+                <button id="trends-tab" class="tab-button">Trends</button>
+                <button id="trigger-trends-tab" class="tab-button">Trigger Trends</button>
+                <button id="backup-restore-tab" class="tab-button">Backup & Restore</button>
+            </nav>
+
+            <section id="historical-data" class="centered-section">
+                <h2>Historical Data</h2>
+                <div class="view-selector">
+                    <button class="view-option active" data-view="weekly">Weekly</button>
+                    <button class="view-option" data-view="monthly">Monthly</button>
+                    <button class="view-option" data-view="yearly">Yearly</button>
+                </div>
+                <div class="navigation">
+                    <button id="prev-period">&lt; Previous</button>
+                    <span id="current-period"></span>
+                    <button id="next-period">Next &gt;</button>
+                </div>
+                <canvas id="historical-chart" width="400" height="300"></canvas>
+            </section>
+
+            <section id="trends" class="centered-section hidden">
+                <h2>Trends</h2>
+                <p>Weekly average: <span id="weekly-average">0</span> cigarettes per day</p>
+                <p>Monthly average: <span id="monthly-average">0</span> cigarettes per day</p>
+                <p>Comparison to previous period: <span id="comparison"></span></p>
+                <p>Longest smoke-free streak: <span id="longest-streak">0 days</span></p>
+                <p>Previous smoke-free streak: <span id="previous-streak">0 days</span></p>
+            </section>
+
+            <section id="trigger-trends" class="centered-section hidden">
+                <h2>Trigger Trends</h2>
+                <div class="view-selector">
+                    <button class="trigger-view-option active" data-view="weekly">Weekly</button>
+                    <button class="trigger-view-option" data-view="monthly">Monthly</button>
+                    <button class="trigger-view-option" data-view="custom">Custom</button>
+                </div>
+                <div id="custom-date-range" class="hidden">
+                    <input type="date" id="start-date">
+                    <input type="date" id="end-date">
+                    <button id="apply-custom-range">Apply</button>
+                </div>
+                <canvas id="trigger-chart" width="400" height="300"></canvas>
+                <div id="top-triggers">
+                    <h3>Top 3 Triggers</h3>
+                    <ol id="top-triggers-list"></ol>
+                </div>
+            </section>
+
+            <section id="backup-restore" class="centered-section hidden">
+                <h2>Backup & Restore Data</h2>
+                <div class="backup-buttons">
+                    <button id="backup-data" class="primary-button">Export Data</button>
+                    <div class="restore-wrapper">
+                        <input type="file" id="restore-input" accept=".json" class="hidden">
+                        <button id="restore-data" class="primary-button">Import Data</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script type="module" src="database.js"></script>
+    <script type="module" src="app.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/service-worker.js')
+                .then(registration => console.log('Service Worker registered'))
+                .catch(error => console.log('Service Worker registration failed:', error));
+        }
+    </script>
+</body>
+</html>

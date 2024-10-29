@@ -1,0 +1,388 @@
+:root {
+    --primary-color: #4a90e2;
+    --secondary-color: var(--primary-color);
+    --background-color: #f0f4f8;
+    --text-color: #333;
+    --card-background: white;
+    --border-radius: 8px;
+    --stat-text-color: var(--primary-color);
+}
+
+/* Dark theme variables */
+[data-theme="dark"] {
+    --primary-color: #3c618b;
+    --secondary-color: var(--primary-color);
+    --background-color: #1a1a1a;
+    --text-color: #ffffff;
+    --card-background: #2d2d2d;
+    --stat-text-color: var(--primary-color);
+    ;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+.app-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1, h2, h3 {
+    color: var(--primary-color);
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+section {
+    background-color: var(--card-background);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.centered-section {
+    text-align: center;
+}
+
+.centered-section p {
+    margin-bottom: 10px;
+}
+
+.primary-button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    font-size: 18px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.primary-button:hover {
+    background-color: #ffe15c;
+    color: #464646;
+}
+
+.price-selector, .view-selector {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    margin-bottom: 15px;
+}
+
+.price-option, #custom-price, .view-option, .trigger-view-option {
+    flex: 1;
+    max-width: 80px;
+    padding: 5px 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: var(--border-radius);
+    background-color: white;
+    cursor: pointer;
+}
+
+.price-option.selected, .view-option.active, .trigger-view-option.active {
+    background-color: var(--secondary-color);
+    color: white;
+    border-color: var(--secondary-color);
+}
+
+#custom-price {
+    width: 60px;
+}
+
+#cost-display {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    justify-content: center;
+}
+
+#trigger-options {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 5px;
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+
+.trigger-option {
+    flex: 0 1 calc(33.333% - 10px);
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: var(--border-radius);
+    background-color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.trigger-option:hover, .trigger-option.selected {
+    background-color: var(--secondary-color);
+    color: white;
+    border-color: var(--secondary-color);
+}
+
+.centered-nav {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.tab-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #e0e0e0;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.tab-button.active {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.hidden {
+    display: none;
+}
+
+.centered-content {
+    text-align: center;
+}
+
+.navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+#historical-chart, #trigger-chart {
+    width: 100% !important;
+    height: 300px !important;
+    max-height: 300px;
+    margin: 0 auto;
+}
+
+#custom-date-range {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+#custom-date-range input[type="date"] {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: var(--border-radius);
+}
+
+#apply-custom-range {
+    padding: 5px 10px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+}
+
+#top-triggers {
+    margin-top: 20px;
+}
+
+#top-triggers-list {
+    list-style-position: inside;
+    padding-left: 0;
+}
+
+@media (max-width: 480px) {
+    .app-container {
+        padding: 10px;
+    }
+
+    #cost-display {
+        grid-template-columns: 1fr;
+    }
+
+    .trigger-option {
+        flex: 1 0 calc(50% - 5px);
+    }
+
+    .centered-nav {
+        flex-wrap: wrap;
+    }
+
+    .tab-button {
+        flex: 1 0 calc(50% - 10px);
+        margin-bottom: 10px;
+    }
+}
+
+/* Add the theme toggle styles */
+.theme-switch-wrapper {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.theme-switch {
+    position: relative;
+    width: 60px;
+    height: 30px;
+    background: #e9e9e9;
+    border-radius: 15px;
+    cursor: pointer;
+    padding: 3px;
+    transition: background-color 0.3s;
+}
+
+.theme-switch[data-active="dark"] {
+    background: #363636;
+}
+
+.switch-handle {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    background: white;
+    border-radius: 50%;
+    transition: transform 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.theme-switch[data-active="dark"] .switch-handle {
+    transform: translateX(30px);
+    background: #1a1a1a;
+}
+
+.switch-handle i {
+    font-size: 14px;
+    color: #f5a623;
+}
+
+/* Add these styles */
+.backup-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.backup-buttons .primary-button {
+    width: auto;
+}
+
+.restore-wrapper {
+    position: relative;
+}
+
+#restore-input {
+    display: none;
+}
+
+/* Update the backup-restore styles */
+#backup-restore {
+    text-align: center;
+    padding: 20px;
+}
+
+.backup-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.backup-buttons .primary-button {
+    min-width: 150px;
+    padding: 12px 24px;
+}
+
+/* If you want to adjust the nav bar for the additional tab */
+.centered-nav {
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.tab-button {
+    flex: 1 1 auto;
+    min-width: max-content;
+}
+
+@media (max-width: 600px) {
+    .backup-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .backup-buttons .primary-button {
+        width: 200px;
+    }
+}
+
+/* Add these styles */
+.cigarette-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin: 0 0 20px 0;
+    padding: 10px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    padding-top: 20px;
+}
+
+.stat-card {
+    background: var(--card-background);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: var(--border-radius);
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.stat-card h3 {
+    font-size: 0.9rem;
+    color: var(--text-color);
+    margin-bottom: 8px;
+    opacity: 0.8;
+}
+
+.stat-card p {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0;
+    color: var(--stat-text-color);
+}
+
+
+
+@media (max-width: 480px) {
+    .cigarette-stats {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+}
