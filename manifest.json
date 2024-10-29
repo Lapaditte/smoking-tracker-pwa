@@ -3,7 +3,7 @@
     "short_name": "Smoke Track",
     "description": "Track your smoking habits and journey to quit",
     "start_url": "/",
-    "display": "standalone",
+    "display": "fullscreen",
     "background_color": "#ffffff",
     "theme_color": "#4CAF50",
     "orientation": "portrait",
